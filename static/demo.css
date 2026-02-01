@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url(images/background.png) no-repeat center center fixed;
+    background-size: cover;
+}
+#signin-icon ,#currency-icon{
+  width: 50px; /* Adjust width */
+  height: 50px; /* Adjust height */
+  border-radius: 10px; /* Add rounded corners */
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+#signin-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+#signin-icon,#currency-icon {
+  margin-left: 20px; /* Space from adjacent elements */
+  margin-right: auto; /* Align based on layout needs */
+  vertical-align: middle; /* Ensure alignment in the navbar */
+}
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 15px 30px;
+    color: black;
+    backdrop-filter: blur(10px);
+    width:95%;
+}
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: black; /* Adjust color for better visibility */
+}
+
+.nav-links {
+  list-style: none; /* Remove bullets from list */
+  display: flex; /* Align items horizontally */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  position: relative;
+  top: 5px;
+}
+
+.nav-links li {
+  margin-left: 20px; /* Space between links */
+}
+
+.nav-links a {
+  text-decoration: none; /* Remove underline */
+  color: black; /* Default link color */
+  font-size: 16px;
+  transition: color 0.3s ease; /* Add hover effect */
+}
+.nav-links a:hover {
+  color: #333; /* Darker color on hover */
+}
+
+
+#signin-icon {
+  width: 30px; /* Adjust icon size */
+  height: 30px; /* Adjust icon size */
+  cursor: pointer; /* Make the icons clickable */
+}
+
+#signin-icon {
+  margin-left: 20px; /* Add space before sign-in icon */
+}
+
+.text {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-left: 50px;
+  margin-top: 130px;         
+  max-width: 50%;
+  text-align: left; /* Align the text */
+}
+.text h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: purple;
+
+}
+.text p {
+  margin-top: 10px;
+  color: black;
+  line-height: 1.6;
+  font-family: cursive;
+  font-size: 1.5rem;
+}
+.acc h1{
+  text-align: center;
+}
+.image{
+  position: absolute;
+  right: 50px;
+  top: 110px;
+  z-index: 1;
+}
+.home{
+  background-color: #5add5f; /* Green background */
+  color: navy; /* White text */
+  padding: 10px 20px; /* Padding for button size */
+  font-size: 20px; /* Font size */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  width: 30%;
+  
+}
+.home:hover {
+  background: #78ec88; /* Adds a hover effect */
+  box-shadow: inset 2px 2px 5px #72f893, inset -3px -3px 7px #adecc0;
+}
+.currbtn{
+  width: 250px;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  padding: 20px;
+}
+.text.category {
+  width: 55%; /* Adjust the width of the Categories section */
+  text-align: left; /* Ensure the text is left-aligned */
+}
+
+.h1category {
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.pcategory {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.picture {
+  width: 40%; /* Adjust the size of the picture section */
+  text-align: left;
+}
+
+.picture img {  
+  width: 100%; /* Make the image responsive */
+  height: auto;
+  margin-top:50px;
+}
+.accounts{
+  position: absolute;
+  top:1800px;
+  right: 50px;
+}
+/* Aurora Gradient Animation */
+@keyframes auroraGradient {
+    0% { background-position: 0% 0%; }
+    25% { background-position: 50% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 50% 50%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Popup Container */
+.content {
+    perspective: 1000px; /* For 3D flipping */
+     display: flex;
+}
+
+
+.popup {
+    width: 350px;
+    height: 400px;
+    position:fixed;
+    z-index: 1000;
+    margin-top: 20%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-in-out;
+    background: radial-gradient(circle, #FFDEE9, #B5FFFC, #F6FDC3, #D8B5FF);
+    background-size: 300% 300%;
+    animation: auroraGradient 15s ease infinite;
+    border-radius: 10px;
+    padding: 40px 30px;
+    box-shadow: -3px -3px 7px #ffffff73, 2px 2px 5px rgba(94, 104, 121, 0.288);
+    display: none;
+}
+
+
+.one{
+ font-size: 1.8rem;
+}
+.popup.show {
+    display: block;
+}
+
+.popup.flip {
+    transform: translate(-50%,-50%) rotateY(180deg); /* Flip animation */
+}
+
+.side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    
+}
+.back{
+  align-items: center;
+  position: absolute;
+  right: 30px;
+
+}
+.side.front {
+    transform: rotateY(0deg);
+}
+
+.side.back {
+    transform: rotateY(180deg);
+}
+.side.front, .side.back {
+  padding: 20px; /* Equal padding on both sides */
+  margin: 0; /* Remove unnecessary margins */
+}
+
+
+/* Input Fields and Buttons */
+.field {
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+
+.field input {
+  width: 70%;
+  height: 50px;
+  padding-left: 40px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+  background: #dde1e7;
+  color: #595959;
+  box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #ffffff73;
+  transition: all 0.3s ease; /* Adds smooth transitions */
+}
+
+.field input:focus {
+  background: #e4e9f0; /* Slightly brighter background on focus */
+  color: #333; /* Darker text for better visibility */
+}
+.field .fa-user, .fa-lock {
+  position: absolute;
+  top: 20px;
+  left: 18px; /* Adjust the horizontal position */
+  color: #555; /* Customize the icon color */
+  font-size: 16px; /* Adjust icon size if needed */
+  pointer-events: none; /* Prevent interference when clicking the input field */
+}
+
+
+
+
+button {
+  margin: 15px 0;
+  
+  width: 80%;
+  height: 50px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  background: #dde1e7;
+  color: #595959;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px #babec3, -3px -3px 7px #ffffff;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #cdd3db; /* Adds a hover effect */
+  box-shadow: inset 2px 2px 5px #babec3, inset -3px -3px 7px #ffffff;
+}
+
+@keyframes pulse {
+  0%, 100% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.1);
+  }
+}
+
+#signin-icon:hover {
+  animation: pulse 0.6s infinite; /* Create a pulsing effect on hover */
+}
+@media screen and (max-width: 768px) {
+  .navbar {
+      flex-direction: column; /* Stack items vertically */
+      align-items: center;
+      text-align: center;
+  }
+
+  .nav-links {
+      flex-direction: column; /* Stack links vertically */
+  }
+
+  .nav-links li {
+      margin: 10px 0; /* Add space between stacked links */
+  }
+  .popup {
+    width: 90%; /* Take most of the screen width */
+    padding: 10px; /* Adjust padding */
+    font-size: 14px; /* Scale down text size */
+    display: flex;
+    
+}
+}
