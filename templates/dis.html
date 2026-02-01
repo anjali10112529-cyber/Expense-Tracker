@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Options</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    body {
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    height: 100vh; /* Full-page height */
+    margin: 0;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+   
+}
+
+.container {
+    width: 50%; /* Adjust width as needed */
+    padding: 20px;
+   background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: justify; /* Align text properly */
+}.option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    text-align: center;
+    padding: 10px;
+    margin: 10px auto;
+    width: 50%;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+.container {
+            text-align: center;
+            width: 90%;
+            max-width: 400px;       
+    background-color: transparent; /* Completely transparent */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+           background: white;
+opacity: 0.7; 
+
+    background: rgba(255, 255, 255, 0.3); /* White with 30% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+
+#applySettings {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #1c1d1e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding-right: 20px;
+}
+
+#applySettings:hover {
+    background-color: #1f2021;
+}
+
+
+/* Summary Display */
+#summary {
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+/* Styling the Next button */
+.next-button {
+  background-color: #040404; /* Green background */
+  border: none; /* Remove border */
+  color: white; /* White text */
+  padding: 15px 32px; /* Adjust padding for better size */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Align properly */
+  font-size: 16px; /* Font size */
+  margin: 10px; /* Space around button */
+  cursor: pointer; /* Pointer cursor */
+  border-radius: 12px; /* Rounded corners */
+  position: absolute; /* Positioning */
+  right: 20px; /* Align to the right side */
+  bottom: 20px; /* Align towards the bottom */
+}
+
+/* Hover effect */
+.next-button:hover {
+  background-color: #747775; /* Darker green on hover */
+}
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Display Options</h2>
+        <div class="option">
+            <label>View Mode:</label>
+            <select>
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+           
+        </div>
+        <div class="option">
+            <label>Growth:</label>
+            <select>
+                <option value="yearly">Yearly</option>
+                <option value="Quarterly">Quarterly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+        </div>
+        <div class="option">
+            <label>Show Total:</label>
+            <input type="radio" name="Total" value="yes"> Yes
+            <input type="radio" name="Total" value="no" checked> No
+        </div>
+        <div class="option">
+            <label>Premium:</label>
+            <input type="checkbox"> Enable Premium
+        </div>
+        
+        <button id="applySettings">Apply Settings</button></div>
+
+    <script>
+        $(document).ready(function(){
+            $("#applySettings").click(function(){
+                let viewMode = $("#viewMode").val();
+                let growth = $("#growth").val();
+                let Total = $("input[name='Total']:checked").val();
+                let premium = $("#premium").is(":checked") ? "Enabled" : "Disabled";
+
+                alert(`Settings Applied:\nView Mode: ${viewMode}\nGrowth: ${growth}\nShow Total: ${Total}\nPremium: ${premium}`);
+            });
+        });
+    </script>
+    </div>
+    <button class="next-button" onclick="window.location.href='/category';"><strong>NEXT</strong></button>
+</body>
+</html>

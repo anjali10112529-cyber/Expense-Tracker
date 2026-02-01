@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Selection</title>
+    <style>
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-image: url();
+            background-size:cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container styling */
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px; background-color: transparent; /* Completely transparent */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+           background: white;
+opacity: 0.7; 
+
+    background: rgba(255, 255, 255, 0.3); /* White with 30% transparency */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    padding: 20px;
+    border-radius: 8px;
+
+        }
+
+        /* Header styling */
+        h1 {
+            font-size: 1.8rem;
+            color: #d324a8;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #555555;
+            margin-bottom: 20px;
+        }
+
+        /* Currency list styling */
+        .currency-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .currency-list li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .currency-list li:hover {
+            background-color: #dc8ec8;
+        }
+
+        .currency-list li.selected {
+            background-color: #78d8f3;
+            color: rgb(140, 24, 24);
+            font-weight: bold;
+        }
+
+        /* Note styling */
+        .note {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #888888;
+        }
+
+        /* Next button styling */
+        .next-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #ec62b0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-button:hover {
+            background-color: #dc8ec8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container -->
+    <div class="container">
+        <h1>Welcome</h1>
+        <p>Choose your currency sign</p>
+
+        <!-- List of currencies -->
+        <ul class="currency-list" id="currencyList">
+            <li>Kuwaiti Dinar - KWD</li>
+            <li>Indian Rupee - INR</li>
+            <li>Australian Dollar - AUD</li>
+            <li>Ugandan Shilling - UGX</li>
+            <li>Indonesian Rupiah - IDR</li>
+            <li>Mexican Dollar- MXN</li>
+            <li>US Dollar - USD</li>
+            <li>Singapore DOllar - SGD</li>
+            <li>Canadian Dollar - CAD</li>
+        </ul>
+
+        <!-- Note -->
+        <p class="note">You can also change your currency sign later.</p>
+
+        <!-- Next button -->
+        <button class="next-button" onclick="window.location.href='/dis';"><strong>NEXT</strong></button>
+    </div>
+
+    <script>
+        // Select only one currency
+        const currencyList = document.getElementById('currencyList');
+        let selectedCurrency = null;
+
+        currencyList.addEventListener('click', (event) => {
+            if (event.target.tagName === 'LI') {
+                // Clear previous selection
+                const currentlySelected = document.querySelector('.currency-list .selected');
+                if (currentlySelected) {
+                    currentlySelected.classList.remove('selected');
+                }
+                // Mark the clicked item as selected
+                event.target.classList.add('selected');
+                selectedCurrency = event.target.textContent; // Store the selected currency
+            }
+        });
+
+        // Navigate to the next page
+        function goToNextPage() {
+            if (selectedCurrency) {
+                alert(`You selected: ${selectedCurrency}`);
+                // Redirect to another page
+                window.location.href = "nextPage.html"; // Replace "nextPage.html" with your actual URL
+            } else {
+                alert('Please select a currency first!');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="{{url_for('static',filename='demo.css')}}">
+    <title>Expense Tracker</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Expense Tracker</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#currency"> Currency</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#account">Account</a></li>
+            
+            <li>
+                <a href="#">
+                    <img src="{{ url_for('static', filename='images/account.png') }}" alt="Sign In" id="signin-icon">
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="content">
+        <div class="popup hidden" id="popup">
+            <div class="side front">                
+                <form>
+                    <h3 class="one">Login Form </h3>
+                    <div class="field">
+                        <input type="text" placeholder="Email or Phone" required>
+                        <span class="fas fa-user"></span>
+                        
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder=" Password" required>
+                        <span class="fas fa-lock"></span>
+                        
+                    </div>
+                    <button>Sign in</button>
+                    <div class="sign-up">
+                        Not a member?
+                        <a href="#" id="showSignup">Signup now</a>
+                    </div>
+                </form>
+            </div>
+            <div class="side back">
+                    <form action="/" method="post">
+                    <h3 class="two">Sign Up</h3>
+                    <div class="field">
+                        <input type="text" name="name" placeholder="Name" required>
+                        <span class="fas fa-user"></span>
+                        
+                    </div>
+                    <div class="field">
+                        <input type="password" name="password" placeholder="Password" reqired>
+                        <span class="fas fa-lock"></span>
+                        
+                    </div>
+                    <div class="field">
+                        <input type="password" name="confirm password" placeholder="Confirm Password" required>
+                        <span class="fas fa-lock"></span>
+                        
+                    </div>
+                    <button>Sign Up</button>
+                    <div class="sign-up">
+                        Already a member?
+                        <a href="#" id="showLogin">Back to Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="text">
+        <section id="home">
+            <h1>Welcome to Expense Tracker</h1><br>
+        </section>
+        <p>
+            Manage your finances effortlessly with our Expense Tracker. Track your spending, 
+            set budgets, and take control of your personal finances. Start your journey to 
+            financial freedom today!
+        </p>
+        <a href="{{ url_for('start') }}">
+            <button class="home"><b>Start Free Trial!</b></button>
+        </a>
+    </div>
+     <div class="container">
+        <div class="picture">
+          <img src="{{ url_for('static', filename='images/currency_type.png') }}" alt="Illustration" />
+        </div>
+    <div class="text category">  
+        <section id="currency">  
+            <h1 class="h1category">Currency</h1><br>
+        </section>
+        <p class="pcategory">
+            Selecting the correct currency is essential for smooth financial transactions. 
+            Whether you're planning an international trip, managing global business, or making investments,
+            having the right currency ensures ease and efficiency.
+        </p>
+        <a href="{{ url_for('currency') }}">
+            <button class="home currbtn"><b>Choose Currency</b></button>
+        </a>
+    </div>
+    </div>
+    <div class="image">
+        <img src="{{ url_for('static', filename='images/home.png') }}" alt="Expense Tracker">
+    </div>
+    <div class="container">
+        <div class="picture">
+          <img src="{{ url_for('static', filename='images/Budjet.png') }}" alt="Illustration" />
+        </div>
+    <div class="text category">  
+        <section id="categories">  
+            <h1 class="h1category">Categories</h1><br>
+        </section>
+        <p class="pcategory">
+            Categories in an expense tracker simplify financial management by 
+            grouping expenses into distinct sections such as Groceries, Utilities, Transportation, Entertainment, 
+            and Savings. This organization helps users analyze their spending habits, 
+            prioritize essential expenditures, and achieve financial goals efficiently.
+        </p>
+        <a href="{{ url_for('category') }}">
+            <button class="home"><b>View Category</b></button>
+        </a>
+    </div>
+    </div>
+    <div class="text acc">
+
+        <section id="account">
+            <h1>Accounts</h1><br>  
+        </section> 
+        <p>
+            Manage Your Finances with Ease - Keep track of all your financial sources in one place, 
+            from bank accounts to credit cards, debit cards, UPI, and cash holdings. 
+            Gain a clear view of your monthly income alongside your spending patterns, 
+            empowering you to make informed financial decisions effortlessly.
+        </p>
+        <a href="{{ url_for('accounts') }}">
+            <button class="home"><b>My Accounts</b></button>
+        </a>
+    </div>
+    <div class="picture accounts">
+        <img src="{{ url_for('static', filename='images/m_o_p.png') }}" alt="Expense Tracker">
+    </div>
+   
+    <script src="{{url_for('static', filename='demo.js')}}"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(to right, #ff9a9e, #fad0c4); text-align: center; color: #333; }
+        header { background: linear-gradient(to right, #ff758c, #ff7eb3); padding: 20px; font-size: 24px; color: white; border-radius: 10px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); }
+        .main-container { display: flex; justify-content: space-around; max-width: 1000px; margin: 20px auto; }
+        .container { width: 45%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); transition: 0.3s ease-in-out; }
+        .container:hover { transform: scale(1.02); }
+        input, select, button { width: 100%; padding: 10px; margin-top: 10px; border: 2px solid #ff758c; border-radius: 5px; }
+        button { background: linear-gradient(to right, #ff758c, #ff7eb3); color: white; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        button:hover { background: linear-gradient(to left, #fa709a, #ff9a9e); box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); }
+        ul { list-style: none; padding: 10px; }
+        li { background: #ffe0e6; padding: 10px; margin: 5px; border-radius: 5px; }
+        .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); }
+        .popup button { width: auto; display: inline-block; }
+        .progress-container { margin: 20px auto; position: relative; width: 150px; height: 150px; border-radius: 50%; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); }
+        .progress-circle { width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(#ff758c 0%, #ffe0e6 0%); display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; color: violet; }
+        #csvData { margin-top: 20px; font-size: 16px; color: #333; }
+        #save-button {
+    background-color: #20ec09;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block; /* Center button */
+    font-size: 16px;
+    margin: 20px auto; /* Auto margin for centering */
+    cursor: pointer;
+    border-radius: 12px;
+    width: 200px;}
+    </style>
+</head>
+<body>
+    <header>ACCOUNTS</header>
+
+    <div class="main-container">
+        <div class="container">
+            <h2>Set Your Budget</h2>
+            <input type="number" id="fixed-budget" placeholder="Enter your fixed budget">
+            <button onclick="setBudget()">Save Budget</button>
+
+            <h2>Available Balance</h2>
+            <button onclick="showBalance()">Check Balance</button>
+            <p id="balance-display"></p>
+
+            <h2>Add Expense</h2>
+            <input type="date" id="expense-date">
+            <select id="payment-method">
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+                <option value="online">Online</option>
+            </select>
+            <input type="number" id="amount" placeholder="Enter amount spent">
+            <button onclick="addExpense()">Add Expense</button>
+        </div>
+
+        <div class="container">
+            <h2>Expense Overview</h2>
+            <button onclick="showPopup('daily')">Daily</button>
+            <button onclick="showPopup('weekly')">Weekly</button>
+            <button onclick="showPopup('monthly')">Monthly</button>
+            
+            <div class="progress-container">
+                <div class="progress-circle" id="progress-circle">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <h2 id="popup-title"></h2>
+        <ul id="expense-list"></ul>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <button id="save-button" onclick="showCSV()"><strong>Show CSV File</strong></button>
+   <div id="csvPopup" class="popup">
+    <h2>CSV Data</h2>
+    <pre id="csvContent"></pre>
+    <button onclick="closeCSVPopup()">Close</button>
+</div>
+
+
+    <script>
+        let fixedAmount = parseFloat(localStorage.getItem("fixedBudget")) || 0;
+        let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
+        const expenses = JSON.parse(localStorage.getItem("expenses")) || { daily: [], weekly: [], monthly: [] };
+
+        function setBudget() {
+            fixedAmount = parseFloat(document.getElementById("fixed-budget").value) || 0;
+            localStorage.setItem("fixedBudget", fixedAmount);
+            alert(`Fixed budget set: ₹${fixedAmount}`);
+            updateProgress();
+        }
+
+        async function addExpense() {
+            const date = document.getElementById("expense-date").value;
+            const method = document.getElementById("payment-method").value;
+            const amount = parseFloat(document.getElementById("amount").value) || 0;
+
+            if (!date || amount <= 0) return alert("Invalid details!");
+             let fixedAmount = parseFloat(localStorage.getItem("fixedBudget")) || 0;
+                let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
+            if (amount > fixedAmount - totalExpense) return alert("Insufficient balance!");
+
+            const expenseEntry = { date, method, amount };
+            expenses.daily.push(expenseEntry);
+            expenses.weekly.push(expenseEntry);
+            expenses.monthly.push(expenseEntry);
+            totalExpense += amount;
+            localStorage.setItem("expenses", JSON.stringify(expenses));
+            localStorage.setItem("totalExpense", totalExpense);
+            updateProgress();
+            alert(`Expense Added: ₹${amount} | Remaining Balance: ₹${fixedAmount - totalExpense}`);
+            try {
+                await fetch("/store_expense", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(expenseEntry)
+        });
+    } catch (error) {
+        console.error("Failed to store expense:", error);
+    }
+        
+    }
+
+        function showPopup(type) {
+            document.getElementById("popup-title").textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Expenses`;
+            document.getElementById("expense-list").innerHTML = expenses[type].map(exp => `<li>${exp.date} | ${exp.method}: ₹${exp.amount}</li>`).join('') || `<li>No records.</li>`;
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+function showBalance() {
+    let fixedAmount = parseFloat(localStorage.getItem("fixedBudget")) || 0;
+    let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
+    let remainingBalance = fixedAmount - totalExpense;
+    
+    document.getElementById("balance-display").textContent = `Available Balance: ₹${remainingBalance >= 0 ? remainingBalance : 0}`;
+}
+
+
+       
+
+async function showCSV() {
+    try {
+        let response = await fetch("/show"); // Fetch CSV file
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status} - ${response.statusText}`);
+        }
+        let text = await response.text();
+
+        document.getElementById("csvContent").innerText = text; // Update popup content
+        document.getElementById("csvPopup").style.display = "block"; // Show popup
+    } catch (error) {
+        console.error("Failed to fetch CSV:", error);
+        alert("Error fetching CSV! Make sure the server is running.");
+    }
+}
+function closeCSVPopup() {
+    document.getElementById("csvPopup").style.display = "none";
+}
+
+
+        function updateProgress() {
+            let fixedAmount = parseFloat(localStorage.getItem("fixedBudget")) || 0;
+            let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
+            let percentage = fixedAmount > 0 ? Math.min((totalExpense / fixedAmount) * 100, 100) : 0;
+            document.getElementById("progress-circle").textContent = `${Math.round(percentage)}%`;
+            document.getElementById("progress-circle").style.background = `conic-gradient(#ff758c ${percentage}%, #ffe0e6 ${percentage}%)`;
+        }
+       function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>
